@@ -66,8 +66,7 @@ function pagination(list) {
          </li>`);
    }
    /*I added a class of paginationButtons so that later in my code I could utilize querySelectorAll to grab hold of all the button elements. 
-   In the template literal I added one as the array is a 0 index and I wanted the buttons to start at 1. I also added "-" because I liked
-   the look of the buttons with a "-" between them*/
+   In the template literal I added one as the array is a 0 index and I wanted the buttons to start at 1.*/
    const firstPaginationButton = linkList.querySelector('button')//selected the first pagination button and assigned it the variable firstPaginationButton
    firstPaginationButton.className = 'active paginationButtons';//assigned firstPaginationButton the class name 'active paginationButtons'
    const buttons = linkList.querySelectorAll('.paginationButtons')//This buttons variable grabs ahold of the class that was assigned above.
@@ -85,8 +84,43 @@ function pagination(list) {
    });
 }
 
+
+function searchBar(list){//searchBar function 
+   const header  = document.querySelector(".header");//header variable used to select the header class
+      header.insertAdjacentHTML('beforeend', //utilized insertAdjacent HTML to insert elements
+         `<label for = "search" class="student-search">
+            <input id="search" placeholder="Search by name...">
+            <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
+         </label>`
+      );
+   const searchBarInput = document.querySelector("#search");
+   searchBarInput.addEventListener('keyup', function(e) {//added keyup event to filter in real time as users type. completeSearch function will be called when an event happens. 
+         completeSearch(list, e.target.value);
+      }
+   );
+}
+
+function completeSearch(data, userInput){ //declared completeSearch function which will be 
+   let searchResult = [];
+   for (let i = 0; i< data.length; i++) {//for loop uses to loop through the student data 
+      const studentName = data[i].name.first.toLowerCase() + " " + data[i].name.last.toLowerCase()
+      if (studentName.includes(userInput.toLowerCase())) {
+            searchResult.push(data[i]);
+      }
+      if (searchResult.length < 1) {//conditional statement used to compare the student data with the user input. Intention is to have an error message display when there are no matches. 
+        const errorMessage = document.createElement("li");
+        errorMessage.textContent = "No results match your search. Please check your spelling and try again." 
+        let studentList = document.querySelector(".student-list");
+        studentList.appendChild(errorMessage);
+      }
+   }
+   displayPage(searchResult, 1);
+}
+   
 // Call functions
 displayPage(data, 1);
 pagination(data);
+searchBar(data);
+
 
 
