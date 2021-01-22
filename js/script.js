@@ -62,7 +62,7 @@ function pagination(list) {
    for (let i = 0; i < studentPagesNeeded; i++) { //looping over variable for the number of pagination buttons needed
       linkList.insertAdjacentHTML('beforeend',
          `<li>
-           <button type = "button" class= "paginationButtons">${i + 1}</button> -
+           <button type = "button" class= "paginationButtons">${i + 1}</button>
          </li>`);
    }
    /*I added a class of paginationButtons so that later in my code I could utilize querySelectorAll to grab hold of all the button elements. 
