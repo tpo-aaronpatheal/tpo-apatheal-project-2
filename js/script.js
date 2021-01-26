@@ -62,7 +62,8 @@ function pagination(list) {
    /*I added a class of paginationButtons so that later in my code I could utilize querySelectorAll to grab hold of all the button elements. 
    In the template literal I added one as the array is a 0 index and I wanted the buttons to start at 1.*/
    const firstPaginationButton = linkList.querySelector('button')
-   firstPaginationButton.className = 'active paginationButtons';
+   if(studentPagesNeeded > 1){
+   firstPaginationButton.className = 'active paginationButtons';}
    const buttons = linkList.querySelectorAll('.paginationButtons')
    linkList.addEventListener('click', function (e) { 
       if (e.target.tagName === 'BUTTON') { 
